@@ -1,0 +1,59 @@
+// first up clear all the defaults
+html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, pre, code, address, variable, form, fieldset, blockquote {
+padding: 0;
+margin: 0;
+font-size: 100%;
+font-weight: normal;
+}
+
+button {
+    width: 140px;
+    font-size: 21px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.score {
+    width: 43px;
+}
+
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    text-align: center;
+    margin: 20px;
+    font-weight: normal;
+}
+
+h1, select, .subtitle, #scores {
+    color: #888;
+}
+
+h1 {
+    font-size: 21px;
+}
+
+#content {
+    font-size: 72px;
+}
+
+select, .subtitle {
+    font-size: 16px;
+}
+
+#scores {
+    font-size: 12px;
+}
+
+#answer, #right {
+    background-color: #0F0;
+}
+
+#wrong {
+    background-color: #F00;
+}
+
+#score_buttons {
+    display: none;
+}
