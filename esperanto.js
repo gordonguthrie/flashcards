@@ -8,6 +8,47 @@ ESP.supports_html5_storage = function () {
   }
 };
 
+ESP.sendRequest = function (url, callback, postData) {
+    var req = ESP.createXMLHTTPObject();
+    if (!req) return;
+    var method = (postData) ? "POST" : "GET";
+    req.open(method,url,true);
+    req.setRequestHeader('User-Agent','XMLHTTP/1.0');
+    if (postData)
+        req.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    req.onreadystatechange = function () {
+        if (req.readyState != 4) return;
+        if (req.status != 200 && req.status != 304) {
+//          alert('HTTP error ' + req.status);
+            return;
+        }
+        callback(req);
+    }
+    if (req.readyState == 4) return;
+    req.send(postData);
+}
+
+ESP.XMLHttpFactories = [
+    function () {return new XMLHttpRequest()},
+    function () {return new ActiveXObject("Msxml2.XMLHTTP")},
+    function () {return new ActiveXObject("Msxml3.XMLHTTP")},
+    function () {return new ActiveXObject("Microsoft.XMLHTTP")}
+];
+
+ESP.createXMLHTTPObject = function() {
+    var xmlhttp = false;
+    for (var i=0; i < ESP.XMLHttpFactories.length; i++) {
+        try {
+            xmlhttp = ESP.XMLHttpFactories[i]();
+        }
+        catch (e) {
+            continue;
+        }
+        break;
+    }
+    return xmlhttp;
+}
+
 ESP.select_language = function (event) {
     console.log("select language");
     console.log(event.target.value);
@@ -33,14 +74,20 @@ ESP.click_score = function (event) {
 };
 
 ESP.write_to_page = function (string) {
-    console.log("writing " + string + " to page");
-    console.log(document.getElementById("content"));
     document.getElementById("content").innerHTML = string;
 };
 
 ESP.bind = function (event, id, fun) {
-    console.log("in bind id is " + id);
     var elem = document.getElementById(id).addEventListener(event, fun);
+};
+
+ESP.load_wordlist = function () {
+    var url, callback;
+    url = "./wordlist.json";
+    callback = function(wordlist) {
+        console.log(wordlist.response);
+    };
+    return ESP.sendRequest(url, callback, false);
 };
 
 ESP.main = function () {
@@ -57,6 +104,7 @@ ESP.main = function () {
         ESP.bind("click", "difficulty", ESP.select_difficulty);
         ESP.bind("click", "language",   ESP.select_language);
         ESP.write_to_page("Yay");
+        ESP.load_wordlist();
     };
 }
 

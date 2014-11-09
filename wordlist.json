@@ -1,0 +1,15 @@
+{"wordlist": [
+             {"esperanto":"-j",       "english":"means plural",           "description":"Added to adjectives and nouns",  "difficulty":"Beginner"},
+             {"esperanto":"-n",       "english":"means accusative",       "description":"Added to adjectives and nouns",  "difficulty":"Beginner"},
+             {"esperanto":"-o",       "english":"Nouns",                  "description":"Words ending in -o are nouns",   "difficulty":"Beginner"},
+             {"esperanto":"-e",       "english":"Adverbs",                "description":"Words ending in -e are adverbs", "difficulty":"Beginner"},
+             {"esperanto":"-a",       "english":"Adjectives",             "description":"Words ending -a are adjectives", "difficulty":"Beginner"},
+             {"esperanto":"abol/i",   "english":"Abolish",                "description":"(verb root)",                    "difficulty":"Basic"},
+             {"esperanto":"absorb/i", "english":"Engross",                "description":"(verb root)",                    "difficulty":"Basic"},
+             {"esperanto":"acid/a",   "english":"Sour, Acid",             "description":"(adjective root)",               "difficulty":"Basic"},
+             {"esperanto":"ad/e",     "english":"Continuous, Repeatedly", "description":"(adverb root)",                  "difficulty":"Advanced"},
+             {"esperanto":"adici/1",  "english":"Add",                    "description":"(verb root, transitive)",        "difficulty":"Advanced"},
+             {"esperanto":"peach/o",  "english":"Cunt",                   "description":"(noun root)",                    "difficulty":"Swearing"},
+             {"esperanto":"fik/i",    "english":"Fuck",                   "description":"(verb root)",                    "difficulty":"Swearing"}
+]}
+
