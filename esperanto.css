@@ -1,9 +1,9 @@
-// first up clear all the defaults
+/* first up clear all the defaults */
 html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, pre, code, address, variable, form, fieldset, blockquote {
-padding: 0;
-margin: 0;
-font-size: 100%;
-font-weight: normal;
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    font-weight: normal;
 }
 
 button {
@@ -56,4 +56,21 @@ select, .subtitle {
 
 #score_buttons {
     display: none;
+}
+
+header, #choices, #content, #button_row, #score_section {
+ -web
+}
+
+.header, #choices, #content, #button_row, #score_section {
+    /* border: 1px solid #f00; */
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+}
+
+hr {
+    text-align: center;
+    width: 200px;
 }
