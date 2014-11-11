@@ -38,6 +38,11 @@ h1 {
     font-size: 72px;
 }
 
+#content small {
+    font-size: 36px;
+    font-color: #888;
+}
+
 select, .subtitle {
     font-size: 16px;
 }
@@ -74,3 +79,4 @@ hr {
     text-align: center;
     width: 200px;
 }
+

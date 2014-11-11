@@ -34,43 +34,66 @@ ESP.settings_module = function () {
 };
 
 ESP.words_module = function () {
-    var api, words, test, difficulty, language;
+    var api, words, tests, difficulty, language;
     var load_words_fn, make_test_fn;
     var get_next_fn, get_anser_fn, get_no_left_fn;
 
+    tests = {};
+
     // internal fns
+    make_tests_fn = function (words, language) {
+        var array, currentIndex, tempVal, randomIndex;
+        array = words.slice(0);
+        currentIndex = array.length;
+        while (0 !== currentIndex) {
+            // decrement the index 'cos the length is max index +1
+            currentIndex = currentIndex - 1;
+            randomIndex = Math.floor(Math.random() * currentIndex);
+
+            tempVal = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = tempVal;
+        };
+        tests.test = array;
+        tests.score = 0;
+        tests.no_of_tests = array.length;
+        tests.tests_left = array.length;
+    };
 
     load_words_fn = function (difficulty) {
         var string = localStorage.getItem(difficulty);
         return JSON.parse(string);
     };
 
-    make_test_fn = function (words, language) {
-        var array, currentIndex, tempVal, randomIndex;
-        array = words;
-        currentIndex = array.length;
-        while (0 !== currentIndex) {
-            // decrement the index 'cos the length is max index +1
-            currentIndex = currentIndex - 1;
-            console.log(currentIndex);
-            randomIndex = Math.floor(Math.random() * currentIndex);
-
-            tempVal = array[currentIndex];
-            console.log(tempVal);
-            console.log(randomIndex);
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = tempVal;
-        };
-        return array;
-    };
-
     // API
+
     get_next_fn = function () {
-        return "yurp";
+        var t;
+        if (tests.tests_left === 0) {
+            console.log("save last test");
+            make_tests_fn(words, language);
+        };
+        t = tests.test[0];
+        if (language === "English") {
+            return {"head":  t.english,
+                    "strap": t.description};
+        } else if (language === "Esperanto") {
+            return {"head":  t.esperanto,
+                    "strap": "&nbsp;"};
+        };
     };
 
     get_answer_fn = function () {
-        return "smurg";
+        var t;
+        t = tests.test.shift();
+        tests.tests_left = tests.tests_left - 1;
+        if (language === "English") {
+            return {"head":  t.esperanto,
+                    "strap": "&nbsp;"};
+        } else if (language === "Esperanto") {
+            return {"head":  t.english,
+                    "strap": t.description};
+        };
     };
 
     get_no_left_fn = function () {
@@ -80,9 +103,7 @@ ESP.words_module = function () {
     difficulty = ESP.settings.get_difficulty_fn();
     language = ESP.settings.get_language_fn();
     words = load_words_fn(difficulty);
-    console.log(words);
-    test = make_test_fn(words, language);
-    console.log(test);
+    make_tests_fn(words, language);
 
     api = {
         "get_next_fn":    get_next_fn,
@@ -203,8 +224,10 @@ ESP.click_score = function (event) {
     ESP.write_to_page(ESP.words.get_next_fn());
 };
 
-ESP.write_to_page = function (string) {
-    document.getElementById("content").innerHTML = string;
+ESP.write_to_page = function (contents) {
+    Head = "<div>" + contents.head + "</div>";
+    Strap = "<div><small>" + contents.strap + "</small></div>"
+    document.getElementById("content").innerHTML = Head + Strap;
 };
 
 ESP.bind = function (event, id, fun) {
